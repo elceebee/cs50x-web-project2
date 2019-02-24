@@ -1,2 +1,3 @@
-# cs50x-web-project2
-Flask project
+# Project 2
+
+Web Programming with Python and JavaScript
