@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <head>
     <title>El's Flack</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <!--<script 
         type="text/javascript" 
         src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js">
     </script>-->
+    {% raw -%}
     <script>
-        document.addEventListener('DOMContentLoaded', () => {    
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            
             // First-time visit to Flack
             if (!localStorage.getItem('displayname')) { 
+
+                // Disable welcomeback  div
+                document.getElementById('welcomeback').style.display = "none";
 
                 // By default the submit button is disabled
                 document.querySelector('#choosedisplay').disabled = true;
@@ -33,28 +40,55 @@
                     localStorage.setItem('displayname', displayname);
                 };
             }
+            
+            // User has visited the site before
             else {
+            
+                // Disable choose div
                 document.getElementById('choose').style.display = "none";
+
+                // Retreives displayname
+                const displayname = localStorage.getItem('displayname');
+
+                // Adds message to DOM
+                const welcome = Handlebars.compile("<h1>Welcome {{ displayname }}</h1>");
+                const content = welcome({'displayname': displayname});
+                document.querySelector('#welcomeback').innerHTML = content;
+
+                // Create channel list
+
+                // Link to channel page
+
+                // Connect to websocket
+                // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
             }
         });    
-        // User has been here before
-
-        // Removes box for entering display name
-        
-
-        // Connect to websocket
-        // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
-        // Display last channel and chosen display name
     </script>
+    {%- endraw %}
 
 </head>
 <body>
-    <h1>Welcome to Flack!</h1>
     <div id="choose">
+        <h1>Welcome to Flack!</h1>
         <form id="chooseform">
             <input id="displayname" type="text" placeholder="Choose a username" required>
             <button id="choosedisplay">Submit</button>
         </form>
     </div>
+    <div id="welcomeback">
+        <p>Todo: display last channel visited</p>
+    </div>
+    <div id="channelList">
+    </div>
+    <div id="create">
+        <form id="createChannel">
+            <input id="newChannel" type="text" placeholder="Create a new channel">
+            <button id="anewChannel">Submit</button>
+            <p>todo: store channels</p>
+        </form>
+        <ul id="allChannels">
+            <li>todo: Channel list</li>
+        </ul>
+    </div>
+
 </body>
