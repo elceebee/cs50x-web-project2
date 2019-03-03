@@ -6,85 +6,9 @@
         type="text/javascript" 
         src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js">
     </script>
-    <script>
-        src="{{ url_for('static', filename='index.js') }}"
+    <script
+        src="{{ url_for('static', filename='index.js') }}">
     </script>
-    {% raw -%}
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // First-time visit to Flack
-            if (!localStorage.getItem('displayname')) { 
-
-                // Disable welcomeback div
-                document.getElementById('welcomeback').style.display = "none";
-
-                // Disable channel creation div
-                document.getElementById('createChannel').style.display = "none";
-
-                // By default the submit button is disabled
-                document.querySelector('#choosedisplay').disabled = true;
-                
-                // Enable button only if there is text in the input field
-                document.querySelector('#displayname').onkeyup = () => {
-                    if (document.querySelector('#displayname').value.length < 2) {
-                        document.querySelector('#choosedisplay').disabled = true;
-                    }
-                    else {
-                        document.querySelector('#choosedisplay').disabled = false;
-                    }
-
-                };  
-
-                // When user submits a display name, it's stored in local storage
-                document.querySelector('#chooseform').onsubmit = () => {
-                    
-                    // Sets display name for browser
-                    const displayname = document.querySelector('#displayname').value;
-                    
-                    // Stores displayname in local storage    
-                    localStorage.setItem('displayname', displayname);
-                };
-            }
-            
-            // User has visited the site before
-            else {
-            
-                // Disable choose div
-                document.getElementById('choose').style.display = "none";
-
-                // Retreives displayname
-                const displayname = localStorage.getItem('displayname');
-
-                // Adds message to DOM
-                const welcome = Handlebars.compile("<h1>Welcome {{ displayname }}</h1>");
-                const content = welcome({'displayname': displayname});
-                document.querySelector('#welcomeback').innerHTML = content;
-
-                // By default the button is disabled
-                document.querySelector('#create').disabled = true;
-                
-                // Enable button only if there is text in the input field
-                document.querySelector('#create').onkeyup = () => {
-                    if (document.querySelector('#create').value.length < 2) {
-                        document.querySelector('#create').disabled = true;
-                    }
-                    else {
-                        document.querySelector('#create').disabled = false;
-                    }                                
-                };
-
-                // Create channel list
-
-                // Link to channel page
-
-                // Connect to websocket
-                // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-            }
-        });    
-    </script>
-    {%- endraw %}
 
 </head>
 <body>
@@ -96,16 +20,32 @@
         </form>
     </div>
     <div id="welcomeback">
-        <p>Todo: display last channel visited</p>
     </div>
     <div id="create">
         <form id="createChannel">
-            <input type="text" placeholder="Create a new channel" name="newChannel">
-            <button type="submit">Submit</button>
+            <input id="Channelname" 
+                type="text" 
+                placeholder="Create a new channel" 
+                name="newChannel">
+            <button id="createChannelButton" type="submit">Submit</button>
         </form>
+    </div>
     <div id="allChannels"> Channels:
-        <ul id="channelList">
-    </ul>
+        <ul id="channelList"></ul>
+    </div>
+    <div id="activeChannel">
+        <h1 id="active"></h1>
+        <div id="messageform">
+            <form id="createMessage">
+                <input id="messageText"
+                type="text"
+                placeholder="Add a message to the channel"
+                name="newMessage">
+                <button id="createMessageButton" type="submit">Submit</button>
+            </form>
+        </div>
+        <ul id="messagesList">
+        </ul>
     </div>
 
 </body>
