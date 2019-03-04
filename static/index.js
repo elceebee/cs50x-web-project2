@@ -32,7 +32,7 @@ const CreateNewChannel = () => {
     requestNewChannel.open('POST', '/channels');
     requestNewChannel.setRequestHeader("content-type", "application/json");
 
-    // Callback funciton for when request completes
+    // Callback function for when request completes
     requestNewChannel.onload = () => {
 
         // Check for error messsages from server
@@ -110,6 +110,7 @@ const SwitchChannel = (channel) => {
     localStorage.setItem('activechannel', channel);
     
     // Adds active channel to DOM
+        document.getElementById("activeChannel").style.display = "block"
         const discussionTopic = Handlebars.compile("Discussion: {{ activechannel }}");
         const topic = discussionTopic({'activechannel': channel});
         document.querySelector('#active').innerHTML = topic;
@@ -122,14 +123,20 @@ const SwitchChannel = (channel) => {
 const renderMessage = (message) => {
     const Messageli = document.createElement('li');
     Messageli.innerHTML = `${message.message} ${message.displayname} ${message.timestamp}`;
-    document.querySelector('#messagesList').append(Messageli);
+    document.getElementById('messagesList').insertAdjacentElement('afterbegin', Messageli);
 } 
-
+// Adds channels to the list of channels. Used when new created, or from global variable.
 const renderChannel = (channel) => {
     const Channelli = document.createElement('li');
-    Channelli.innerHTML = `${channel}`;
-    document.querySelector('#channelList').append(Channelli);
-
+    const Channela = document.createElement('a');
+    Channela.setAttribute('href', `/#${channel}`);
+    Channela.setAttribute('class', 'switch')
+    Channela.innerHTML = `${channel}`;
+    Channelli.appendChild(Channela);
+    document.getElementById("channelList").insertAdjacentElement('afterbegin', Channelli);
+    Channela.addEventListener('click', function() {
+        SwitchChannel(`${channel}`)
+    }, false);
 } 
 
 const FirstTime = () => {
@@ -172,9 +179,24 @@ const SecondTime = () => {
     // Retreives displayname
     const displayname = localStorage.getItem('displayname');
 
-    // Retreives last active channel
+    // Retreives last active channel if channel still exists
     if (localStorage.getItem('activechannel')) {
-        SwitchChannel(localStorage.getItem('activechannel'))
+        Active = localStorage.getItem('activechannel')
+        
+        // Checks that active channel still exists
+        const requestCheck = new XMLHttpRequest();
+        requestCheck.open('GET', `/check?channel=${Active}`);
+
+        requestCheck.onload = () => {
+            if (requestCheck.status == 204) {
+                document.getElementById("activeChannel").style.display = "none";
+                socket.off(localStorage.getItem("activechannel"))
+            }
+            else {
+                SwitchChannel(Active)
+            }
+        }
+        requestCheck.send();
     }
 
     // Adds welcome message to DOM
@@ -234,10 +256,3 @@ document.addEventListener('DOMContentLoaded', () => {
         SecondTime();
     }
 });    
-
-
-
-
-/*Enhancements
-Change order of channel list so that most recent is on top
-Load messages when refresh*/

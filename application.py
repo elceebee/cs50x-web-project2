@@ -81,3 +81,10 @@ def postmessage():
             return "", 404
         return jsonify(messages[channel])
 
+@app.route("/check", methods=["GET"])
+def check():
+    
+    # User has active channel in local storage, so check if it still exists
+    channel = request.args.get("channel")
+    if not channel in messages:
+        return "", 204
