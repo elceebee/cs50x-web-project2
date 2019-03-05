@@ -1,52 +1,73 @@
 <!DOCTYPE html>
-<head>
-    <title>El's Flack</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-    <script 
-        type="text/javascript" 
-        src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js">
-    </script>
-    <script
-        src="{{ url_for('static', filename='index.js') }}">
-    </script>
+<html lang="en">
+    <head>
+        
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-</head>
-<body>
-    <div id="choose">
-        <h1>Welcome to Flack!</h1>
-        <form id="chooseform">
-            <input id="displayname" type="text" placeholder="Choose a username" required>
-            <button id="choosedisplay">Submit</button>
-        </form>
-    </div>
-    <div id="welcomeback">
-    </div>
-    <div id="create">
-        <form id="createChannel">
-            <input id="Channelname" 
-                type="text" 
-                placeholder="Create a new channel" 
-                name="newChannel">
-            <button id="createChannelButton" type="submit">Submit</button>
-        </form>
-    </div>
-    <div id="allChannels"> 
-        <h1>Channels</h1>
-        <ul id="channelList"></ul>
-    </div>
-    <div id="activeChannel">
-        <h1 id="active"></h1>
-        <div id="messageform">
-            <form id="createMessage">
-                <input id="messageText"
-                type="text"
-                placeholder="Add a message to the channel"
-                name="newMessage">
-                <button id="createMessageButton" type="submit">Submit</button>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- links to local stylesheets-->
+        <link href="/static/project2.css" rel="stylesheet">
+
+        <script 
+            src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js">
+            </script>
+        <script 
+            type="text/javascript" 
+            src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js">
+        </script>
+        <script
+            src="{{ url_for('static', filename='index.js') }}">
+        </script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js">
+        </script>
+        <title>El's Flack</title>
+
+    </head>
+    <body>
+        <div id="choose" class="greeting">
+            <h1>Welcome to Flack!</h1>
+            <form id="chooseform">
+                <input id="displayname" type="text" placeholder="Choose a username" required>
+                <button id="choosedisplay">Submit</button>
             </form>
         </div>
-        <ul id="messagesList">
-        </ul>
-    </div>
+        <div id="welcome" class="greeting">
+            <h1 id="welcomeback"></h1>
+            <p id="notMe"></p>
+        </div>
+        <div id="create">
+            <h1>Create a Discussion Channel</h1>
+            <form id="createChannel">
+                <input id="Channelname" 
+                    type="text" 
+                    placeholder="Create a new channel" 
+                    name="newChannel">
+                <button id="createChannelButton" type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="allChannels"> 
+            <h1>Channels</h1>
+            <ul id="channelList"></ul>
+        </div>
+        <div id="activeChannel">
+            <h1 id="active"></h1>
+            <div id="messageform">
+                <form id="createMessage">
+                    <input id="messageText"
+                    type="text"
+                    placeholder="Add a message to the channel"
+                    name="newMessage">
+                    <button id="createMessageButton" type="submit">Submit</button>
+                </form>
+            </div>
+            <ul id="messagesList" class="list-group">
+            </ul>
+        </div>
 
-</body>
+    </body>
+</html>

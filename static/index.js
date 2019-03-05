@@ -25,6 +25,11 @@ const EnableMessageButton = () => {
         document.querySelector('#createMessageButton').disabled = false;
     }
 }
+
+const ForgetUser = () => {
+    localStorage.removeItem('displayname')
+    localStorage.removeItem('activechannel')
+}
 const CreateNewChannel = () => {         
     // Initialise new channel request
     const requestNewChannel = new XMLHttpRequest();
@@ -121,8 +126,31 @@ const SwitchChannel = (channel) => {
         });
 }
 const renderMessage = (message) => {
+    
+    // Creates list item to contain message
     const Messageli = document.createElement('li');
-    Messageli.innerHTML = `${message.message} ${message.displayname} ${message.timestamp}`;
+    Messageli.setAttribute('class', 'Messageli');
+
+    // Creates message elements
+    const MessageDisplayname = document.createElement('p');
+    const Message = document.createElement('p');
+    const Messagetimedate = document.createElement('time');
+
+    // Sets attributes to assist with formatting in css file
+    
+    MessageDisplayname.setAttribute('class', 'MessageDisplayname');
+    Message.setAttribute('class', 'Message');
+    Messagetimedate.setAttribute('class', 'Messagetimedate');
+
+    // Inserts content into elements
+    MessageDisplayname.innerHTML = message.displayname
+    Message.innerHTML = message.message;
+    Messagetimedate.innerHTML = moment.unix(message.timestamp).format("LLL");
+
+    // Appends elements to the list item
+    Messageli.innerHTML += MessageDisplayname.outerHTML + Message.outerHTML + Messagetimedate.outerHTML;
+    
+    // Adds new message to lsit
     document.getElementById('messagesList').insertAdjacentElement('afterbegin', Messageli);
 } 
 // Adds channels to the list of channels. Used when new created, or from global variable.
@@ -141,7 +169,7 @@ const renderChannel = (channel) => {
 
 const FirstTime = () => {
     // Disable welcomeback div
-    document.getElementById('welcomeback').style.display = "none";
+    document.getElementById('welcome').style.display = "none";
 
     // Disable channel creation div
     document.getElementById('createChannel').style.display = "none";
@@ -190,7 +218,7 @@ const SecondTime = () => {
         requestCheck.onload = () => {
             if (requestCheck.status == 204) {
                 document.getElementById("activeChannel").style.display = "none";
-                socket.off(localStorage.getItem("activechannel"))
+                localStorage.removeItem("activechannel")
             }
             else {
                 SwitchChannel(Active)
@@ -199,10 +227,17 @@ const SecondTime = () => {
         requestCheck.send();
     }
 
-    // Adds welcome message to DOM
-    const welcome = Handlebars.compile("<h1>Welcome {{ displayname }}</h1>");
-    const content = welcome({'displayname': displayname});
-    document.querySelector('#welcomeback').innerHTML = content;
+    // Adds welcome message to DOM    
+    document.querySelector('#welcomeback').innerHTML = `Welcome ${displayname}!`;
+    const notMe = document.querySelector('#notMe')
+    const notMeA =document.createElement('a');
+    notMe.appendChild(notMeA);
+    notMeA.setAttribute('href', '/');
+    notMeA.innerHTML = `I'm not ${displayname}`;
+    notMeA.addEventListener('click', function() {
+        ForgetUser()
+    }, false);
+
 
     // Adds channel list to DOM
     const requestChannels = new XMLHttpRequest();

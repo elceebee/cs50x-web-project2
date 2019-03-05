@@ -1,0 +1,31 @@
+/* Fonts */
+/*Colours*/
+p {
+  font-family: "Courier New", Courier, monospace;
+}
+
+h1, h2, h3 {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+
+/* Style Messages*/
+.Messageli {
+  background-color: #588c7e;
+  border-top-width: 4px;
+}
+
+.MessageDisplayname {
+  color: white;
+  font-weight: bold;
+}
+
+.Message {
+  color: white;
+}
+
+.Messagetimedate {
+  color: white;
+  font-style: oblique;
+}
+
+/*# sourceMappingURL=project2.css.map */

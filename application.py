@@ -88,3 +88,4 @@ def check():
     channel = request.args.get("channel")
     if not channel in messages:
         return "", 204
+    return ""
