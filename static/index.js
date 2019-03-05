@@ -172,7 +172,7 @@ const FirstTime = () => {
     document.getElementById('welcome').style.display = "none";
 
     // Disable channel creation div
-    document.getElementById('createChannel').style.display = "none";
+    document.getElementById('create').style.display = "none";
 
     // Disable channel list
     document.getElementById('allChannels').style.display = "none";
