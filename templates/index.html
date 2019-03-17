@@ -6,9 +6,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
         <!-- links to local stylesheets-->
         <link href="/static/project2.css" rel="stylesheet">
 
@@ -29,45 +26,109 @@
 
     </head>
     <body>
-        <div id="choose" class="greeting">
-            <h1>Welcome to Flack!</h1>
-            <form id="chooseform">
-                <input id="displayname" type="text" placeholder="Choose a username" required>
-                <button id="choosedisplay">Submit</button>
-            </form>
-        </div>
-        <div id="welcome" class="greeting">
-            <h1 id="welcomeback"></h1>
-            <p id="notMe"></p>
-        </div>
-        <div id="create">
-            <h1>Create a Discussion Channel</h1>
-            <form id="createChannel">
-                <input id="Channelname" 
-                    type="text" 
-                    placeholder="Create a new channel" 
-                    name="newChannel">
-                <button id="createChannelButton" type="submit">Submit</button>
-            </form>
-        </div>
-        <div id="allChannels"> 
-            <h1>Channels</h1>
-            <ul id="channelList"></ul>
-        </div>
-        <div id="activeChannel">
-            <h1 id="active"></h1>
-            <div id="messageform">
-                <form id="createMessage">
-                    <input id="messageText"
-                    type="text"
-                    placeholder="Add a message to the channel"
-                    name="newMessage">
-                    <button id="createMessageButton" type="submit">Submit</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h1 class="navbar-brand">FLACK!</h1>
+            <button class="navbar-toggler" 
+                type="button" 
+                data-toggle="collapse" 
+                data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div id="allChannels">
+                    <ul class="navbar-nav mr-auto">
+                        <li>
+                            <form class="form-inline my-2 mx-2 my-lg-0" 
+                                id="createChannel">
+                                <input id="Channelname" 
+                                    class="form-control mx-2"
+                                    type="text"
+                                    aria-describedby="NewChannelHelp" 
+                                    placeholder="Create a new channel" 
+                                    name="newChannel">
+                                <button class="btn btn-info my-2 mx-2 my-sm-0"
+                                    id="createChannelButton"    
+                                    type="submit">
+                                    Submit</button>
+                            </form>
+                        </li>
+                        <li>
+                            <div>
+                                <button class="btn btn-info ml-3"
+                                    id="collapsibleChannels"
+                                    data-toggle="collapse"
+                                    href="#channelList"
+                                    role="button" 
+                                    aria-expanded="false" 
+                                    aria-controls="channelList">
+                                    Choose a channel</button>
+                            </div>
+                            <div>
+                                <ul class="list-group collapse" 
+                                    id="channelList"></ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class = "container" id="choose">
+            <div class="col">
+                <form id="chooseform">
+                    <div class="form-group">
+                        <input class="form-control"
+                            id="displayname" 
+                            type="text" 
+                            placeholder="Choose a username"
+                            aria-describedby="newDisplayHelp"
+                            required>
+                        <small class="form-text text-muted"
+                            id="newDisplayHelp">
+                            Other users will see this when you contribute to channels.
+                        </small>
+                        <button class="btn btn-info"
+                            id="choosedisplay"
+                            type="submit">
+                            Submit</button>
+                    </div>
                 </form>
             </div>
-            <ul id="messagesList" class="list-group">
-            </ul>
         </div>
-
+        <div id="welcome" class="container greeting">
+            <div class="col">
+                <h1 id="welcomeback"></h1>
+                <p id="notMe"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col">
+                <div id="activeChannel">
+                <h2 id="active"></h2>
+                    <form id="createMessage">   
+                        <div class="form-group" id="messageform">
+                            <textarea class="form-control"
+                                id="messageText"
+                                rows="3"
+                                placeholder="Add a message to the channel"
+                                name="newMessage"></textarea>
+                            <button class="btn btn-info my-2"
+                                id="createMessageButton" 
+                                type="submit">
+                                Submit</button>
+                        </div>
+                    </form>   
+                    <ul id="messagesList" class="list-group">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- javascript source from bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>

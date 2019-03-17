@@ -2,7 +2,8 @@ let activechannel;
 var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     
 const EnableDisplayNameButton = () => {
-    if (document.querySelector('#displayname').value.length < 2) {
+    if (document.querySelector('#displayname').value.length < 2 
+        || document.querySelector('#Channelname').value.length > 15) {
         document.querySelector('#choosedisplay').disabled = true;
     }
     else {
@@ -10,7 +11,8 @@ const EnableDisplayNameButton = () => {
     }
 }
 const EnableCreateChannelButton = () => {
-    if (document.querySelector('#Channelname').value.length < 2) {
+    if (document.querySelector('#Channelname').value.length < 2 
+        || document.querySelector('#Channelname').value.length > 25) {
         document.querySelector('#createChannelButton').disabled = true;
     }
     else {
@@ -33,7 +35,7 @@ const ForgetUser = () => {
 const CreateNewChannel = () => {         
     // Initialise new channel request
     const requestNewChannel = new XMLHttpRequest();
-    const newChannel = document.querySelector('#Channelname').value;
+    const newChannel = document.querySelector('#Channelname').value.trim();
     requestNewChannel.open('POST', '/channels');
     requestNewChannel.setRequestHeader("content-type", "application/json");
 
@@ -115,7 +117,7 @@ const SwitchChannel = (channel) => {
     localStorage.setItem('activechannel', channel);
     
     // Adds active channel to DOM
-        document.getElementById("activeChannel").style.display = "block"
+        document.getElementById("activeChannel").style.display = "block";
         const discussionTopic = Handlebars.compile("Discussion: {{ activechannel }}");
         const topic = discussionTopic({'activechannel': channel});
         document.querySelector('#active').innerHTML = topic;
@@ -127,20 +129,20 @@ const SwitchChannel = (channel) => {
 }
 const renderMessage = (message) => {
     
-    // Creates list item to contain message
+    // Creates list item to contain message and bootstrap scss class
     const Messageli = document.createElement('li');
-    Messageli.setAttribute('class', 'Messageli');
+    Messageli.setAttribute('class', 'list-group-item');
 
     // Creates message elements
-    const MessageDisplayname = document.createElement('p');
+    const MessageDisplayname = document.createElement('h5');
     const Message = document.createElement('p');
     const Messagetimedate = document.createElement('time');
 
-    // Sets attributes to assist with formatting in css file
+    // Sets attributes for bootstrap scss theming
     
-    MessageDisplayname.setAttribute('class', 'MessageDisplayname');
-    Message.setAttribute('class', 'Message');
-    Messagetimedate.setAttribute('class', 'Messagetimedate');
+    MessageDisplayname.setAttribute('class', 'mb-1');
+    Message.setAttribute('class', 'mb-1');
+    Messagetimedate.setAttribute('class', 'text-muted');
 
     // Inserts content into elements
     MessageDisplayname.innerHTML = message.displayname
@@ -158,10 +160,11 @@ const renderChannel = (channel) => {
     const Channelli = document.createElement('li');
     const Channela = document.createElement('a');
     Channela.setAttribute('href', `/#${channel}`);
-    Channela.setAttribute('class', 'switch')
+    Channelli.setAttribute('class', 'list-group-item');
     Channela.innerHTML = `${channel}`;
     Channelli.appendChild(Channela);
     document.getElementById("channelList").insertAdjacentElement('afterbegin', Channelli);
+    // document.getElementById("channelList").insertAdjacentElement('afterbegin', Channela);
     Channela.addEventListener('click', function() {
         SwitchChannel(`${channel}`)
     }, false);
@@ -171,11 +174,11 @@ const FirstTime = () => {
     // Disable welcomeback div
     document.getElementById('welcome').style.display = "none";
 
-    // Disable channel creation div
-    document.getElementById('create').style.display = "none";
-
     // Disable channel list
     document.getElementById('allChannels').style.display = "none";
+
+    // Disable channel creation form
+    document.getElementById('createChannel').style.display = "none";
 
     // Disable active channel
     document.getElementById('activeChannel').style.display = "none";
@@ -226,6 +229,9 @@ const SecondTime = () => {
         }
         requestCheck.send();
     }
+    else {
+            document.getElementById("activeChannel").style.display = "none";
+        }    
 
     // Adds welcome message to DOM    
     document.querySelector('#welcomeback').innerHTML = `Welcome ${displayname}!`;
@@ -257,6 +263,15 @@ const SecondTime = () => {
     socket.on('new channel', NewChannelName => {
         renderChannel(NewChannelName)
     });
+
+    // Collapses Channel list on the DOM
+    //$('document').ready(function(e) {
+      //  $('.collapse').collapse({toggle: false});
+    //  });
+
+    //$('collapsibleChannels').collapse({
+      //  toggle: true
+    //});
 
     // Creating a new channel
     // Set up button: by default the create channel button is disabled
