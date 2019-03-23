@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
+# Global variable for storing messages and channels. Channels are stored as keys.
+
 messages = {}
 
 @app.route("/")
@@ -37,7 +39,7 @@ def create():
             # Returns list of channels 
             return ""
 
-        # If channel exists, user goes to that channel but 400 returns (invalid request)
+        # If channel exists, user goes to that channel but 409 returns (invalid request)
         else:
             return "", 409
    
