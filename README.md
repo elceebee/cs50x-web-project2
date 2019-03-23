@@ -33,5 +33,3 @@ When a user choses a channel, it is stored in local storage variabel "activechan
 
 //Personal Touch//
 (1) If you open up FLACK and it remembers a user that isn't you, you can say, 'that's not me' and chose a new user name. (2) The display is built to be mobile-responsive so that the conversations get the most realestate on the screen (rather than the channel list).
-
-
