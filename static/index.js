@@ -160,11 +160,11 @@ const renderChannel = (channel) => {
     const Channelli = document.createElement('li');
     const Channela = document.createElement('a');
     Channela.setAttribute('href', `/#${channel}`);
+    Channela.setAttribute('class', 'text-info')
     Channelli.setAttribute('class', 'list-group-item');
     Channela.innerHTML = `${channel}`;
     Channelli.appendChild(Channela);
     document.getElementById("channelList").insertAdjacentElement('afterbegin', Channelli);
-    // document.getElementById("channelList").insertAdjacentElement('afterbegin', Channela);
     Channela.addEventListener('click', function() {
         SwitchChannel(`${channel}`)
     }, false);
@@ -199,9 +199,7 @@ const FirstTime = () => {
         localStorage.setItem('displayname', displayname);
 
         SecondTime();
-    
     };
-
 }
 const SecondTime = () => {
     // Disable choose display name div
@@ -239,11 +237,11 @@ const SecondTime = () => {
     const notMeA =document.createElement('a');
     notMe.appendChild(notMeA);
     notMeA.setAttribute('href', '/');
+    notMeA.setAttribute('class', 'text-info');
     notMeA.innerHTML = `I'm not ${displayname}`;
     notMeA.addEventListener('click', function() {
         ForgetUser()
     }, false);
-
 
     // Adds channel list to DOM
     const requestChannels = new XMLHttpRequest();
