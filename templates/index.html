@@ -6,9 +6,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- links to local stylesheets-->
-        <link href="/static/project2.css" rel="stylesheet">
-
+        <!--link to bootstrap css-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+            crossorigin="anonymous">
+        
         <script 
             src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js">
             </script>
@@ -22,11 +24,12 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js">
         </script>
+
         <title>El's Flack</title>
 
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <body class="bg-light text-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light text-dark">
             <h1 class="navbar-brand">FLACK!</h1>
             <button class="navbar-toggler" 
                 type="button" 
@@ -42,7 +45,8 @@
                     <ul class="navbar-nav mr-auto">
                         <li>
                             <form class="form-inline my-2 mx-2 my-lg-0" 
-                                id="createChannel">
+                                id="createChannel"
+                                autocomplete="off">
                                 <input id="Channelname" 
                                     class="form-control mx-2"
                                     type="text"
@@ -77,7 +81,8 @@
         </nav>
         <div class = "container" id="choose">
             <div class="col">
-                <form id="chooseform">
+                <form id="chooseform"
+                    autocomplete="off">
                     <div class="form-group">
                         <input class="form-control"
                             id="displayname" 
@@ -107,7 +112,8 @@
             <div class="col">
                 <div id="activeChannel">
                 <h2 id="active"></h2>
-                    <form id="createMessage">   
+                    <form id="createMessage"
+                        autocomplete="off">   
                         <div class="form-group" id="messageform">
                             <textarea class="form-control"
                                 id="messageText"
