@@ -11,6 +11,8 @@ This is an instant messaging service using Socket.IO technology. The front end i
 
 ## Approach
 
+A video demonstration is here: <https://youtu.be/mgW07ZdxNy4>
+
 Users can create chat rooms and add messages. Messages and rooms are emitted via Socket.IO for real-time conversations between users.
 
 - See Python code which alerts the front end when channels are added: [application.py#L36](https://github.com/elceebee/cs50x-web-project2/blob/4d958fc7e9d9cf30566db2b18c04176deddcc761/application.py#L36) and when messages are sent: [application.py#L76](https://github.com/elceebee/cs50x-web-project2/blob/4d958fc7e9d9cf30566db2b18c04176deddcc761/application.py#L76)
