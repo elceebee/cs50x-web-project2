@@ -1,6 +1,6 @@
 # Flack Messaging Service
 
-This is an instant messaging service using Socket.IO technology. The front end is written in JavaScript (ES6), the back end is written in Python. Local storage is used to remember user preferences such as last chat room visited and username.
+This is an instant messaging service using Socket.IO technology. The front end is written in vanilla JavaScript (ES6); the back end is written in Python. Local storage is used to remember user preferences such as last chat room visited and username.
 
 ## Technologies used
 
